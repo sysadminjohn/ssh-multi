@@ -22,8 +22,11 @@ CUSTOM_TERMINAL_COMMAND="gnome-terminal --tab --"
 ######### Functions
 
 prepare_connect() {
-
-    read -p "HOSTS: " HOSTS
+    
+    while read -p "HOSTS (One per line, CTRL+D to end): " -e NEWHOST; do
+    
+        HOSTS+=("$NEWHOST")
+    done
 
     if [[ $HOSTS == '' ]]; then 
         echo "No hosts provided"
@@ -59,8 +62,7 @@ nc_connect() {
     fi
     
 
-    for H in $HOSTS ; do 
-        i=$((i+1))
+    for H in "${HOSTS[@]}" ; do 
         $CUSTOM_TERMINAL_COMMAND nc -vv $H $NC_PORT
     done
 
@@ -92,7 +94,7 @@ ssh_connect() {
     fi
     
 
-    for H in $HOSTS ; do 
+    for H in "${HOSTS[@]}" ; do 
         $CUSTOM_TERMINAL_COMMAND ssh -p $SSH_PORT $SSH_USER@$H
     done
 
