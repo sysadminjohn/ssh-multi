@@ -23,7 +23,7 @@ CUSTOM_TERMINAL_COMMAND="gnome-terminal --tab --"
 
 prepare_connect() {
 
-    while read -p $'\e[33mHOSTS (One per line, CTRL+D to end):  \e[0m' -e NEWHOST; do    
+    while read -p $'\e[33mHOST (one per line, CTRL+D to end):  \e[0m' -e NEWHOST; do    
 
         HOSTS+=("$NEWHOST")
 
